@@ -1,120 +1,139 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sanubari Apparel — Jersey & Kaos Custom</title>
-  <meta name="description" content="Sanubari Apparel melayani pembuatan jersey & kaos custom tanpa minimal order. Desain bebas, bahan adem, harga terjangkau. Kirim ke seluruh Indonesia.">
-  <meta name="keywords" content="sanubari apparel, jersey custom, kaos custom, baju custom wonogiri, jersey printing murah, kaos sablon, bikin baju sendiri, konveksi wonogiri">
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sanubari Apparel</title>
+  <link rel="icon" type="image/png" href="SNBR.png">
   <style>
-    /* Animasi smooth hover */
-    .hover-scale {
-      transition: transform 0.3s ease;
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f8f9;
+      color: #023e44;
+      overflow-x: hidden;
     }
-    .hover-scale:hover {
-      transform: scale(1.03);
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header img {
+      height: 40px;
+      margin-right: 10px;
+    }
+    header h1 {
+      font-size: 1.2rem;
+      margin: 0;
+      color: #016b77;
+    }
+    nav a {
+      margin-left: 20px;
+      text-decoration: none;
+      color: #016b77;
+      font-weight: 500;
+    }
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      background: linear-gradient(to right, #018c9e, #016b77);
+      color: white;
+      text-align: center;
+      padding: 0 20px;
+    }
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+    .hero p {
+      max-width: 500px;
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+    .btn {
+      padding: 12px 30px;
+      background-color: white;
+      color: #016b77;
+      font-weight: bold;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background-color: #f5f8f9;
+    }
+    section {
+      padding: 60px 20px;
+      max-width: 900px;
+      margin: auto;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 1s ease-out;
+    }
+    section.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    footer {
+      background-color: #023e44;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 0.9rem;
     }
   </style>
 </head>
-<body class="bg-white text-gray-800 font-sans">
-
-  <!-- NAVBAR -->
-  <header class="bg-black text-white">
-    <div class="max-w-6xl mx-auto flex justify-between items-center p-5">
-      <a href="index.html" class="text-2xl font-bold tracking-wide">Sanubari Apparel</a>
-      <nav class="space-x-6">
-        <a href="index.html" class="hover:text-green-400 transition">Home</a>
-        <a href="galeri.html" class="hover:text-green-400 transition">Galeri</a>
-        <a href="https://wa.me/628151880858" target="_blank" class="bg-green-500 px-4 py-2 rounded hover:bg-green-600 transition">Order</a>
-      </nav>
+<body>
+  <header>
+    <div style="display: flex; align-items: center;">
+      <img src="SNBR.png" alt="Sanubari Logo">
+      <h1>Sanubari Apparel</h1>
     </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="gallery.html">Gallery</a>
+    </nav>
   </header>
 
-  <!-- HERO -->
-  <section class="bg-gray-100 py-16 text-center px-4">
-    <h1 class="text-4xl font-bold mb-4 leading-snug">Bikin Jersey & Kaos Custom <br>Gaya Kamu Sendiri</h1>
-    <p class="text-lg text-gray-600 mb-6">Tanpa minimal order. Bisa custom suka-suka. Diproduksi langsung dari Wonogiri.</p>
-    <a href="https://wa.me/628151880858" target="_blank" class="inline-block bg-black text-white px-6 py-3 rounded hover:bg-gray-800 transition font-semibold">Pesan Sekarang</a>
+  <div class="hero">
+    <h2>Wear Your Sanubari</h2>
+    <p>Koleksi apparel dengan desain otentik, menggabungkan seni dan filosofi. Jadilah bagian dari gelombang kreatif yang membawa cerita ke setiap benang.</p>
+    <a href="gallery.html" class="btn">Shop Now</a>
+  </div>
+
+  <section>
+    <h2>Kenapa Pilih Sanubari?</h2>
+    <p>
+      Karena kami percaya pakaian bukan sekadar kain, tetapi cerminan jiwa. 
+      Setiap desain Sanubari Apparel terinspirasi dari budaya, petualangan, dan semangat untuk terus melangkah maju.  
+      Bahan berkualitas, detail presisi, dan makna di setiap rancangan — itu komitmen kami.
+    </p>
   </section>
 
-  <!-- KATALOG -->
-  <section class="py-16">
-    <div class="max-w-6xl mx-auto px-4">
-      <h2 class="text-3xl font-bold mb-10 text-center">Katalog Produk</h2>
-      <div class="grid md:grid-cols-3 gap-6">
-        
-        <!-- Produk -->
-        <div class="border rounded-lg shadow-md overflow-hidden hover-scale">
-          <img src="https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com/Shirt.jpg" alt="Kaos Custom" class="w-full h-60 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold">Kaos Custom Polos</h3>
-            <p class="mt-2 text-sm text-gray-600">Custom desain suka-suka. Bahan adem dan ringan. Mulai dari 1 pcs!</p>
-            <p class="mt-2 font-bold text-lg">Rp60.000</p>
-          </div>
-        </div>
-
-        <div class="border rounded-lg shadow-md overflow-hidden hover-scale">
-          <img src="https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com/Jersey.jpeg" alt="Jersey Custom" class="w-full h-60 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold">Jersey Custom Fullprint</h3>
-            <p class="mt-2 text-sm text-gray-600">Motif galak, warna nendang! Full printing, cocok untuk tim & komunitas.</p>
-            <p class="mt-2 font-bold text-lg">Rp70.000</p>
-          </div>
-        </div>
-
-        <div class="border rounded-lg shadow-md overflow-hidden hover-scale">
-          <img src="https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com/Size%20Chart.png" alt="Size Chart" class="w-full h-60 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold">Size Chart</h3>
-            <p class="mt-2 text-sm text-gray-600">Detail ukuran lengkap dari M hingga 7XL.</p>
-            <p class="mt-2 font-bold text-lg">Rp0</p>
-          </div>
-        </div>
-
-        <div class="border rounded-lg shadow-md overflow-hidden hover-scale">
-          <img src="https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com/PL.png" alt="Pricelist" class="w-full h-60 object-cover">
-          <div class="p-4">
-            <h3 class="text-xl font-semibold">Pricelist Lengkap</h3>
-            <p class="mt-2 text-sm text-gray-600">Harga custom dijamin murah tanpa ngorbanin kualitas.</p>
-            <p class="mt-2 font-bold text-lg">Rp0</p>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="bg-black text-white py-20">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-bold mb-8">Kenapa Pilih Sanubari?</h2>
-      <div class="grid md:grid-cols-2 gap-8 text-left">
-        <div>
-          <h3 class="text-xl font-semibold mb-2">✅ Tanpa Minimal Order</h3>
-          <p class="text-sm text-gray-300">Pesan satuan pun tetap kami layani maksimal.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">🎨 Desain Bebas</h3>
-          <p class="text-sm text-gray-300">Bebas pilih warna, nama, nomor, motif sesuai selera.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">🚚 Pengiriman Cepat</h3>
-          <p class="text-sm text-gray-300">Diproduksi di Wonogiri, kirim ke seluruh Indonesia.</p>
-        </div>
-        <div>
-          <h3 class="text-xl font-semibold mb-2">❤️ Produk Lokal</h3>
-          <p class="text-sm text-gray-300">Bangga pakai karya anak negeri.</p>
-        </div>
-      </div>
-      <a href="https://wa.me/628151880858" target="_blank" class="inline-block mt-10 bg-green-500 text-black px-6 py-3 rounded hover:bg-green-600 transition font-bold">Order Sekarang</a>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="bg-gray-100 text-center text-sm py-6">
-    &copy; 2025 Sanubari Apparel · Wonogiri, Indonesia · All rights reserved.
+  <footer>
+    &copy; 2025 Sanubari Apparel. All rights reserved.
   </footer>
 
+  <script>
+    const sections = document.querySelectorAll("section");
+    const showOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.85;
+      sections.forEach(sec => {
+        const boxTop = sec.getBoundingClientRect().top;
+        if (boxTop < triggerBottom) sec.classList.add("show");
+      });
+    };
+    window.addEventListener("scroll", showOnScroll);
+    showOnScroll();
+  </script>
 </body>
 </html>
