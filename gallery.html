@@ -5,9 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Gallery Produk</title>
   <style>
-    .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
-    .card { border: 1px solid #ddd; padding: 10px; border-radius: 8px; text-align: center; }
-    .card img { max-width: 100%; height: auto; border-radius: 8px; }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 8px;
+      text-align: center;
+      background: white;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease;
+    }
+    .card.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .card img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
   </style>
 </head>
 <body>
@@ -15,11 +37,12 @@
   <div class="gallery" id="gallery"></div>
 
   <script>
+    const BASE_URL = "https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com";
     const gallery = document.getElementById("gallery");
 
     async function loadProducts() {
       try {
-        const res = await fetch("https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com/products.json");
+        const res = await fetch(`${BASE_URL}/products.json`);
         const products = await res.json();
 
         gallery.innerHTML = products.map(p => `
@@ -30,6 +53,12 @@
             <strong>Rp ${p.price}</strong>
           </div>
         `).join("");
+
+        // Fade-in animasi
+        document.querySelectorAll(".card").forEach((card, i) => {
+          setTimeout(() => card.classList.add("show"), i * 100);
+        });
+
       } catch (err) {
         gallery.innerHTML = "<p>Gagal memuat produk</p>";
       }
