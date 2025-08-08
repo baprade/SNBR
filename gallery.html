@@ -39,22 +39,26 @@
       color: #016b77;
       font-weight: 500;
     }
+    h2 {
+      text-align: center;
+      margin: 30px 0;
+    }
     .gallery {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
       gap: 20px;
-      padding: 40px;
+      padding: 0 20px 40px;
       max-width: 1200px;
       margin: auto;
     }
     .item {
-      background-color: white;
+      background: white;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
       transform: translateY(20px);
       opacity: 0;
-      transition: all 0.8s ease;
+      transition: all 0.8s ease-out;
     }
     .item.show {
       transform: translateY(0);
@@ -65,18 +69,17 @@
       height: 250px;
       object-fit: cover;
     }
-    .item-info {
+    .item-content {
       padding: 15px;
     }
-    .item-info h3 {
+    .item-content h3 {
       margin: 0;
-      font-size: 1.1rem;
       color: #016b77;
     }
-    .item-info p {
+    .item-content p {
+      margin: 8px 0;
       font-size: 0.9rem;
       color: #555;
-      margin: 8px 0;
     }
     .price {
       font-weight: bold;
@@ -103,56 +106,52 @@
     </nav>
   </header>
 
-  <div class="gallery">
-    <div class="item">
-      <img src="https://via.placeholder.com/400x250" alt="Produk 1">
-      <div class="item-info">
-        <h3>Kaos Urban</h3>
-        <p>Desain minimalis dengan bahan premium, cocok untuk sehari-hari.</p>
-        <span class="price">Rp 150.000</span>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://via.placeholder.com/400x250" alt="Produk 2">
-      <div class="item-info">
-        <h3>Hoodie Signature</h3>
-        <p>Hangat dan stylish, untuk musim hujan atau malam santai.</p>
-        <span class="price">Rp 320.000</span>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://via.placeholder.com/400x250" alt="Produk 3">
-      <div class="item-info">
-        <h3>Jaket Street</h3>
-        <p>Memberikan tampilan tegas dan penuh percaya diri.</p>
-        <span class="price">Rp 450.000</span>
-      </div>
-    </div>
-    <div class="item">
-      <img src="https://via.placeholder.com/400x250" alt="Produk 4">
-      <div class="item-info">
-        <h3>Topi Sanubari</h3>
-        <p>Aksesori yang melengkapi gaya streetwear kamu.</p>
-        <span class="price">Rp 90.000</span>
-      </div>
-    </div>
-  </div>
+  <h2>Our Collection</h2>
+  <div class="gallery" id="gallery"></div>
 
   <footer>
     &copy; 2025 Sanubari Apparel. All rights reserved.
   </footer>
 
   <script>
-    const items = document.querySelectorAll(".item");
-    const showOnScroll = () => {
+    const galleryEl = document.getElementById('gallery');
+    const JSON_URL = "https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com/products.json"; // Ganti ke link JSON-mu
+
+    async function loadProducts() {
+      try {
+        const res = await fetch(JSON_URL);
+        if (!res.ok) throw new Error("Gagal fetch data produk");
+        const products = await res.json();
+
+        galleryEl.innerHTML = products.map(prod => `
+          <div class="item">
+            <img src="${prod.image}" alt="${prod.name}">
+            <div class="item-content">
+              <h3>${prod.name}</h3>
+              <p class="price">${prod.price}</p>
+              <p>${prod.description}</p>
+            </div>
+          </div>
+        `).join("");
+
+        showOnScroll(); // Jalankan efek animasi awal
+      } catch (err) {
+        galleryEl.innerHTML = `<p style="text-align:center;color:red;">Gagal memuat produk 😢</p>`;
+        console.error(err);
+      }
+    }
+
+    function showOnScroll() {
+      const items = document.querySelectorAll(".item");
       const triggerBottom = window.innerHeight * 0.85;
       items.forEach(item => {
         const boxTop = item.getBoundingClientRect().top;
         if (boxTop < triggerBottom) item.classList.add("show");
       });
-    };
+    }
+
     window.addEventListener("scroll", showOnScroll);
-    showOnScroll();
+    loadProducts();
   </script>
 </body>
 </html>
