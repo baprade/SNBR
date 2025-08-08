@@ -20,6 +20,8 @@
   <script type="module">
     import { put, list } from "https://esm.sh/@vercel/blob";
 
+    const BASE_URL = "https://uh4yfzsdv5cs7bmt.public.blob.vercel-storage.com";
+
     const form = document.getElementById("uploadForm");
     const status = document.getElementById("status");
 
@@ -34,24 +36,24 @@
       const file = formData.get("image");
 
       try {
-        // 1. Upload gambar ke Blob Storage
+        // Upload gambar
         const blob = await put(file.name, file, { access: "public" });
 
-        // 2. Ambil products.json lama
+        // Ambil products.json lama
         let products = [];
         try {
           const files = await list();
           const jsonFile = files.blobs.find(b => b.pathname === "products.json");
           if (jsonFile) {
-            const resJson = await fetch(jsonFile.url);
+            const resJson = await fetch(`${BASE_URL}/products.json`);
             products = await resJson.json();
           }
         } catch {}
 
-        // 3. Tambah produk baru
+        // Tambah produk baru
         products.push({ name, description, price, image: blob.url });
 
-        // 4. Simpan ulang products.json
+        // Simpan ulang products.json
         await put("products.json", JSON.stringify(products, null, 2), { access: "public" });
 
         status.textContent = "Produk berhasil diupload!";
