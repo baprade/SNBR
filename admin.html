@@ -1,42 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <title>Admin Upload - Sanubari Apparel</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    input, textarea { display: block; margin-bottom: 10px; width: 300px; }
-    button { padding: 8px 15px; background: teal; color: white; border: none; cursor: pointer; }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Upload Produk</title>
 </head>
 <body>
-  <h1>Upload Produk Baru</h1>
+  <h1>Upload Produk</h1>
   <form id="uploadForm">
-    <input type="text" name="name" placeholder="Nama Produk" required>
-    <textarea name="description" placeholder="Deskripsi" required></textarea>
-    <input type="number" name="price" placeholder="Harga" required>
-    <input type="file" name="image" accept="image/*" required>
+    <input type="text" name="name" placeholder="Nama produk" required><br>
+    <textarea name="description" placeholder="Deskripsi" required></textarea><br>
+    <input type="number" name="price" placeholder="Harga" required><br>
+    <input type="file" name="image" accept="image/*" required><br>
     <button type="submit">Upload</button>
   </form>
 
   <p id="status"></p>
 
-  <script>
-    document.getElementById("uploadForm").addEventListener("submit", async (e) => {
+  <script type="module">
+    import { put, list } from "https://esm.sh/@vercel/blob";
+
+    const form = document.getElementById("uploadForm");
+    const status = document.getElementById("status");
+
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      const formData = new FormData(e.target);
+      status.textContent = "Uploading...";
 
-      document.getElementById("status").innerText = "Uploading...";
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData
-      });
+      const formData = new FormData(form);
+      const name = formData.get("name");
+      const description = formData.get("description");
+      const price = formData.get("price");
+      const file = formData.get("image");
 
-      const result = await res.json();
-      if (res.ok) {
-        document.getElementById("status").innerText = "✅ Produk berhasil diupload!";
-      } else {
-        document.getElementById("status").innerText = "❌ Gagal: " + result.error;
+      try {
+        // 1. Upload gambar ke Blob Storage
+        const blob = await put(file.name, file, { access: "public" });
+
+        // 2. Ambil products.json lama
+        let products = [];
+        try {
+          const files = await list();
+          const jsonFile = files.blobs.find(b => b.pathname === "products.json");
+          if (jsonFile) {
+            const resJson = await fetch(jsonFile.url);
+            products = await resJson.json();
+          }
+        } catch {}
+
+        // 3. Tambah produk baru
+        products.push({ name, description, price, image: blob.url });
+
+        // 4. Simpan ulang products.json
+        await put("products.json", JSON.stringify(products, null, 2), { access: "public" });
+
+        status.textContent = "Produk berhasil diupload!";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        status.textContent = "Gagal upload produk";
       }
     });
   </script>
